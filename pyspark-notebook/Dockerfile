@@ -14,8 +14,8 @@ USER root
 # Default values can be overridden at build time
 # (ARGS are in lower case to distinguish them from ENV)
 ARG spark_version="3.0.0"
-ARG hadoop_version="3.2"
-ARG spark_checksum="BFE45406C67CC4AE00411AD18CC438F51E7D4B6F14EB61E7BF6B5450897C2E8D3AB020152657C0239F253735C263512FFABF538AC5B9FFFA38B8295736A9C387"
+ARG hadoop_version="2.7"
+ARG spark_checksum="F5652835094D9F69EB3260E20CA9C2D58E8BDF85A8ED15797549A518B23C862B75A329B38D4248F8427E4310718238C60FAE0F9D1AFB3C70FB390D3E9CCE2E49"
 ARG py4j_version="0.10.9"
 ARG openjdk_version="11"
 
@@ -32,7 +32,7 @@ RUN apt-get -y update && \
 WORKDIR /tmp
 # Using the preferred mirror to download Spark
 # hadolint ignore=SC2046
-RUN wget -q $(wget -qO- https://www.apache.org/dyn/closer.lua/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz\?as_json | \
+RUN wget -q $(wget -qO- https://archive.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz\?as_json | \
     python -c "import sys, json; content=json.load(sys.stdin); print(content['preferred']+content['path_info'])") && \
     echo "${spark_checksum} *spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz" | sha512sum -c - && \
     tar xzf "spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz" -C /usr/local --owner root --group root --no-same-owner && \
