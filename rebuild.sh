@@ -1,7 +1,9 @@
 #!/bin/bash
 
-docker build --tag dkamotsky/pyspark-notebook:spark301-hadoop32 --no-cache pyspark-notebook
-docker build --build-arg BASE_CONTAINER=dkamotsky/pyspark-notebook:spark301-hadoop32 --tag dkamotsky/all-spark-notebook:spark301-hadoop32 --no-cache all-spark-notebook
+tag="spark300-hadoop27-hive12-jdk8"
 
-docker push dkamotsky/pyspark-notebook:spark301-hadoop32
-docker push dkamotsky/all-spark-notebook:spark301-hadoop32
+docker build --tag dkamotsky/pyspark-notebook:${tag} --no-cache pyspark-notebook
+docker build --build-arg BASE_CONTAINER=dkamotsky/pyspark-notebook:${tag} --tag dkamotsky/all-spark-notebook:${tag} --no-cache all-spark-notebook
+
+docker push dkamotsky/pyspark-notebook:${tag}
+docker push dkamotsky/all-spark-notebook:${tag}
