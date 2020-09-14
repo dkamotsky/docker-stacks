@@ -55,4 +55,7 @@ RUN conda install --quiet -y 'pyarrow' && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+#Added by dkamotsky
+RUN pip install kubernetes
+
 WORKDIR $HOME
